@@ -169,7 +169,7 @@ public class LoginManager : MonoBehaviour
  
         setSpawnLocation(clientId, response);
         NetworkLog.LogInfoServer("SpawnPos of " + clientId + "is" + response.Position.ToString());
-        turnBaseStateMachine.amountPlayer.Value = (int)clientId;
+        turnBaseStateMachine.amountPlayer.Value = (int)clientId+1;
         response.Approved = isApprove;
         response.CreatePlayerObject = isApprove;
         //startCount(isApprove);

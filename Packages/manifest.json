@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.unity.2d.sprite": "1.0.0",
     "com.unity.cinemachine": "2.8.9",
     "com.unity.collab-proxy": "1.17.2",
     "com.unity.feature.development": "1.0.1",
@@ -10,6 +11,7 @@
     "com.unity.multiplayer.samples.coop": "https://github.com/Unity-Technologies/com.unity.multiplayer.samples.coop.git?path=/Packages/com.unity.multiplayer.samples.coop#main",
     "com.unity.multiplayer.tools": "1.0.0",
     "com.unity.netcode.gameobjects": "1.0.2",
+    "com.unity.render-pipelines.universal": "12.1.7",
     "com.unity.services.lobby": "1.0.3",
     "com.unity.services.relay": "1.0.5",
     "com.unity.test-framework": "1.1.31",

@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: fe515b1352d981a40bf885f26b92dbbb
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - MN LEMON
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 81f925b5e1ee9a94088e1669733e7959, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

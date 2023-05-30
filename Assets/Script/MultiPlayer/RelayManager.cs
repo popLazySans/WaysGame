@@ -9,21 +9,23 @@ using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
 using Unity.Netcode;
 using System.Threading.Tasks;
-using ParrelSync;
+//using ParrelSync;
 public class RelayManager : Singleton<RelayManager>
 {
     public UnityTransport Transport => NetworkManager.Singleton.GetComponent<UnityTransport>();
     public bool IsRelayEnabled => Transport != null && Transport.Protocol == UnityTransport.ProtocolType.RelayUnityTransport;
     private async void Start()
     {
-        InitializationOptions options = new InitializationOptions();
-#if UNITY_EDITOR
-        options.SetProfile(ClonesManager.IsClone() ? ClonesManager.GetArgument() : "Primary");
-#endif
+        //Delete(Before build)
+                InitializationOptions options = new InitializationOptions();
+//#if UNITY_EDITOR
+//        options.SetProfile(ClonesManager.IsClone() ? ClonesManager.GetArgument() : "Primary");
+//#endif
         await UnityServices.InitializeAsync(options);
+        //EndDelete
         if (!AuthenticationService.Instance.IsSignedIn)
         {
-            AuthenticationService.Instance.SignedIn += () => { Debug.Log("Signed in" + AuthenticationService.Instance.PlayerId);};
+            AuthenticationService.Instance.SignedIn += () => { Debug.Log("Signed in" + AuthenticationService.Instance.PlayerId); };
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
         }
     }

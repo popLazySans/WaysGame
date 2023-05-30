@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - TurnBaseManager
+  - CharacterManager
+  - PlayerManager
+  - Item
+  - LobbyManager
+  - dice
   layers:
   - Default
   - TransparentFX

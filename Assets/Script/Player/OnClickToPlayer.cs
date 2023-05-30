@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class OnClickToPlayer : MonoBehaviour
 {
     public GameObject Character_Camera;
+    public PlayerRenderCharacter playerRenderCharacter;
     private bool isZoomToCharacter = false;
     private PlayerMove playerMove;
     private void Start()
@@ -31,5 +32,9 @@ public class OnClickToPlayer : MonoBehaviour
     {
         isZoomToCharacter = !isZoomToCharacter;
         Character_Camera.SetActive(isZoomToCharacter);
+        playerRenderCharacter.HPtext.enabled = isZoomToCharacter;
+        playerRenderCharacter.ATKtext.enabled = isZoomToCharacter;
+        playerRenderCharacter.DEFtext.enabled = isZoomToCharacter;
+        playerRenderCharacter.NameText.enabled = isZoomToCharacter;
     }
 }
