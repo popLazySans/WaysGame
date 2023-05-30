@@ -16,11 +16,13 @@ public class RelayManager : Singleton<RelayManager>
     public bool IsRelayEnabled => Transport != null && Transport.Protocol == UnityTransport.ProtocolType.RelayUnityTransport;
     private async void Start()
     {
+        //Delete(Before build)
         InitializationOptions options = new InitializationOptions();
 #if UNITY_EDITOR
         options.SetProfile(ClonesManager.IsClone() ? ClonesManager.GetArgument() : "Primary");
 #endif
         await UnityServices.InitializeAsync(options);
+        //EndDelete
         if (!AuthenticationService.Instance.IsSignedIn)
         {
             AuthenticationService.Instance.SignedIn += () => { Debug.Log("Signed in" + AuthenticationService.Instance.PlayerId);};

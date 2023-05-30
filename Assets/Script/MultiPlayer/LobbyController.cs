@@ -22,18 +22,24 @@ public class LobbyController : Singleton<LobbyController>
     GameObject lobbyNameObject;
     public GameObject roomListPanel;
     public GameObject roomListItemPrefab;
+    public GameObject playerListPanel;
+    public GameObject playerListItemPrefab;
+    public DataInCanvas dataInCanvas;
     List<Lobby> lobbies = new List<Lobby>();
     public LoginManager loginManager;
+    public SceneManager sceneManager;
     private void Start()
     {
-        playerName = "name" + Random.Range(1, 999);
-        Debug.Log("Player Name = "+ playerName);
-        
+    }
+    public void SetPlayerName()
+    {
+        playerName = dataInCanvas.name;
+        Debug.Log("Player Name = " + playerName);
     }
     private void Update()
     {
         HandleLobbyPollForUpdates();
-
+        SearchPlayerOnLobby();
     }
     private async void HandleLobbyPollForUpdates()
     {
@@ -50,11 +56,11 @@ public class LobbyController : Singleton<LobbyController>
         }
     }
   
-    public async void CreateLobby()
+    public async void CreateLobby(TMP_InputField lobbynameText)
     {
         try
         {
-            string lobbyName = "MyLobby";
+            string lobbyName = lobbynameText.text;
             int maxPlayer = 4;
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxPlayer);
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
@@ -81,6 +87,7 @@ public class LobbyController : Singleton<LobbyController>
             StartCoroutine(HeartBeatLobby(hostLobby.Id, 15));
             Debug.Log("Lobby is created : " + lobby.Name + " : " + lobby.MaxPlayers + " : " + lobby.Id + " : " + lobby.LobbyCode + " : " +lobby.Data["JoinCodeKey"].Value) ;
             PrintPlayer(hostLobby);
+            UpdatePlayerList(lobby);
             lobbyPanelGameObject.SetActive(false);
             loginManager.Host(allocation);
         }catch(LobbyServiceException e)
@@ -102,14 +109,16 @@ public class LobbyController : Singleton<LobbyController>
     {
         PrintPlayer(joinedLobby);
     }
-    private async void JoinLobbyByCode(string lobbyCode, string lobbyId)
+    private async void JoinLobbyByCode(string lobbyCode, string lobbyId,Lobby lobby)
     {
         try
         {
             await Lobbies.Instance.JoinLobbyByIdAsync(lobbyId);
             loginManager.Client(lobbyCode);
+            joinedLobby = lobby;
+            UpdatePlayerName(playerName);
             Debug.Log("Joined Lobby by code : " + lobbyCode + "Id : " +lobbyId);
-            lobbyPanelGameObject.SetActive(false);
+            //lobbyPanelGameObject.SetActive(false);
         }
         catch(LobbyServiceException e) { Debug.Log(e); }
     }
@@ -132,7 +141,7 @@ public class LobbyController : Singleton<LobbyController>
         }
     }
     [Command]
-    private async void LobbiesList()
+    public async void LobbiesList()
     {
         try
         {
@@ -167,10 +176,10 @@ public class LobbyController : Singleton<LobbyController>
     void UpdateLobbyList(Lobby lobby ,int i)
     {
         //// Clear the room list panel
-        //foreach (Transform child in roomListPanel.transform)
-        //{
-        //    Destroy(child.gameObject);
-        //}
+        foreach (Transform child in roomListPanel.transform)
+        {
+            Destroy(child.gameObject);
+        }
 
         // Get the list of rooms
 
@@ -181,15 +190,41 @@ public class LobbyController : Singleton<LobbyController>
             // Create a new room list item from the prefab
             GameObject roomListItem = Instantiate(roomListItemPrefab, roomListPanel.transform);
             RectTransform rect = roomListItem.GetComponent<RectTransform>();
-            rect.localPosition = new Vector3(-225,100 - i * 50,0);
+            rect.localPosition = new Vector3(0,100 - i * 50,0);
             // Set the text of the room list item
             TMP_Text roomNameText = roomListItem.GetComponentInChildren<TMP_Text>();
-            roomNameText.text = lobby.Name;
-            
-            // Add a button click listener to join the room
+            roomNameText.text = lobby.Name + "                                      " + lobby.Players.Count+"/"+lobby.MaxPlayers;
+
+        // Add a button click listener to join the room
+       
             Button joinButton = roomListItem.GetComponentInChildren<Button>();
-            joinButton.onClick.AddListener(() => JoinLobbyByCode(lobby.Data["JoinCodeKey"].Value,lobby.Id));
+            joinButton.onClick.AddListener(() => JoinLobbyByCode(lobby.Data["JoinCodeKey"].Value,lobby.Id,lobby));
+            joinButton.onClick.AddListener(() => sceneManager.clickToAnotherScene());
         //}
+    }
+    public void SearchPlayerOnLobby()
+    {
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            UpdatePlayerList(joinedLobby);
+        }
+    }
+    public void UpdatePlayerList(Lobby lobby)
+    {
+        foreach (Transform child in playerListPanel.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        for(int i = 0;i<lobby.Players.Count;i++)
+        {
+            Player player = lobby.Players[i];
+            GameObject playerListItem = Instantiate(playerListItemPrefab, playerListPanel.transform);
+            RectTransform rect = playerListItem.GetComponent<RectTransform>();
+            rect.localPosition = new Vector3(0,30-20*i,0);
+            TMP_Text playerNameText = playerListItem.GetComponentInChildren<TMP_Text>();
+            playerNameText.text = player.Data["PlayerName"].Value;
+        }
     }
     private async void JoinLobby()
     {
