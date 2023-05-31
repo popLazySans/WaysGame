@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6064892738651176698, guid: 29589726b57f61b42bf3b6594ff06da4, type: 3}
       propertyPath: m_Name
-      value: LobbyDetail
+      value: LobbyDetail Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6706623730208460560, guid: 29589726b57f61b42bf3b6594ff06da4, type: 3}
       propertyPath: m_Pivot.x
