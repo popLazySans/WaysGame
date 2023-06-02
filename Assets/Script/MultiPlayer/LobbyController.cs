@@ -33,7 +33,7 @@ public class LobbyController : Singleton<LobbyController>
     }
     public void SetPlayerName()
     {
-        playerName = dataInCanvas.name;
+        playerName = dataInCanvas.playerName;
         Debug.Log("Player Name = " + playerName);
     }
     private void Update()
@@ -228,6 +228,8 @@ public class LobbyController : Singleton<LobbyController>
             rect.localPosition = new Vector3(20,30-20*i,0);
             TMP_Text playerNameText = playerListItem.GetComponentInChildren<TMP_Text>();
             playerNameText.text = player.Data["PlayerName"].Value;
+
+            Debug.Log(player.Data["PlayerName"].Value);
         }
     }
     private async void JoinLobby()

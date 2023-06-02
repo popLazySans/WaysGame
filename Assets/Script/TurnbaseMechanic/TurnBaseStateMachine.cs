@@ -132,6 +132,7 @@ public class TurnBaseStateMachine : NetworkBehaviour
         }
         //Debug.Log(positionText);
     }
+    [Command]
     public void StartDelayedLoop()
     {
         if (!IsOwner) return;

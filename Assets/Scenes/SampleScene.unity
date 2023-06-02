@@ -1193,7 +1193,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &122604766
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3799,7 +3799,8 @@ MonoBehaviour:
   rollableText: {fileID: 165375485}
   skillObject: {fileID: 23514829}
   randomSpawnItem: {fileID: 1252037559}
-  isRolled: 0
+  isRolled:
+    m_InternalValue: 0
   deathController: {fileID: 666058838}
 --- !u!4 &401558516
 Transform:
@@ -7536,7 +7537,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &766274949
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17582,7 +17583,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1832126193
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19356,6 +19357,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f78006f233f61a4296893eb79254cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name_Inputfield: {fileID: 1018261306}
+  playerName: 
 --- !u!1 &1987873207
 GameObject:
   m_ObjectHideFlags: 0
