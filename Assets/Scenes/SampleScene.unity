@@ -1193,7 +1193,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &122604766
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3755,6 +3755,7 @@ GameObject:
   - component: {fileID: 401558517}
   - component: {fileID: 401558518}
   - component: {fileID: 401558519}
+  - component: {fileID: 401558520}
   m_Layer: 0
   m_Name: TurnBaseManager
   m_TagString: TurnBaseManager
@@ -3774,6 +3775,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 481082c3027549f4ba7516bb7bba1661, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  diceImg: {fileID: 1406020010}
+  diceSpriteList:
+  - {fileID: 21300000, guid: 0c9d981047445304c975627fa30a9e7d, type: 3}
+  - {fileID: 21300000, guid: 26a5e98323f934c4dbd4c2f923c370e7, type: 3}
+  - {fileID: 21300000, guid: 2ee29dd59a5d9394ea05e0f52a1a874f, type: 3}
+  - {fileID: 21300000, guid: 787c52e5c1bd3c1458822bc9d9ce2d5d, type: 3}
+  - {fileID: 21300000, guid: 7d726bc17beaa7e448e5c302b9945519, type: 3}
+  - {fileID: 21300000, guid: 8cbca444c7e2fc54dafdaab38baa96c5, type: 3}
+  - {fileID: 21300000, guid: 72999a23709b34146b8d3de484db03b4, type: 3}
+  rollDice: {fileID: 1027207803}
+  delay: 0.1
+  loop: 7
   isYourTurn: 1
   playerTurn:
     m_InternalValue: 0
@@ -3872,6 +3885,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &401558520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401558514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96d717aad4d540e4f91a5798c8d20d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionStateInfoList: []
+  m_Animator: {fileID: 1406020012}
 --- !u!1 &438196263
 GameObject:
   m_ObjectHideFlags: 0
@@ -9425,6 +9452,11 @@ MonoBehaviour:
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 1406020008}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
     TickRate: 30
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 1
@@ -10621,7 +10653,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 401558515}
         m_TargetAssemblyTypeName: TurnBaseStateMachine, Assembly-CSharp
-        m_MethodName: Roll
+        m_MethodName: StartDelayedLoop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13826,13 +13858,15 @@ GameObject:
   - component: {fileID: 1406020011}
   - component: {fileID: 1406020010}
   - component: {fileID: 1406020012}
+  - component: {fileID: 1406020013}
+  - component: {fileID: 1406020014}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Dice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1406020009
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13901,8 +13935,8 @@ Animator:
   m_GameObject: {fileID: 1406020008}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3d6b0e197e91b384185c8fc8295bcd91, type: 2}
-  m_CullingMode: 2
+  m_Controller: {fileID: 9100000, guid: 3b8e3dd154476a542bc18a1d4a965186, type: 2}
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -13911,6 +13945,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1406020013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406020008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 415406297
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &1406020014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406020008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96d717aad4d540e4f91a5798c8d20d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionStateInfoList: []
+  m_Animator: {fileID: 1406020012}
 --- !u!1 &1433948158
 GameObject:
   m_ObjectHideFlags: 0
@@ -17518,7 +17582,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1832126193
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19292,8 +19356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f78006f233f61a4296893eb79254cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name_Inputfield: {fileID: 1018261306}
-  name: 
 --- !u!1 &1987873207
 GameObject:
   m_ObjectHideFlags: 0

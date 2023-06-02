@@ -18,8 +18,8 @@ public class AttackObject : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-      gameObject.GetComponent<Collider>().enabled = CheckEnemyTarget() != null && movementObject.TurnBaseManager.isRolled == true && movementObject.isEnemyPosition == true;
-      gameObject.GetComponent<MeshRenderer>().enabled = CheckEnemyTarget() != null && movementObject.TurnBaseManager.isRolled == true && movementObject.isEnemyPosition == true;
+      gameObject.GetComponent<Collider>().enabled = CheckEnemyTarget() != null && movementObject.TurnBaseManager.isRolled.Value == true && movementObject.isEnemyPosition == true;
+      gameObject.GetComponent<MeshRenderer>().enabled = CheckEnemyTarget() != null && movementObject.TurnBaseManager.isRolled.Value == true && movementObject.isEnemyPosition == true;
       OnClickToAttack();
     }
     public void OnClickToAttack()
@@ -48,7 +48,7 @@ public class AttackObject : NetworkBehaviour
        movementObject.TurnBaseManager.rollableDice -= 1;
        if (movementObject.TurnBaseManager.rollableDice == 0)
        {
-            movementObject.TurnBaseManager.isRolled = false;
+            movementObject.TurnBaseManager.isRolled.Value = false;
             movementObject.TurnBaseManager.skillObject.SetActive(false);
             movementObject.TurnBaseManager.rollableText.enabled = false;
             movementObject.TurnBaseManager.ChangeToAnotherPlayerTurnServerRpc();
