@@ -6,24 +6,21 @@ public class CharacterStateMachine : MonoBehaviour
 {
     public int characterID;
     public string characterName;
-    public Sprite characterSprite;
+    public SpriteRenderer characterSprite;
     public string characterDetail;
     public CharacteStat characteStat;
     public CharacterSkill characterSkill;
+    void Start(){
+        // characterSprite = gameObject.GetComponent<SpriteRenderer>();
+    }
     public CharacterStateMachine(string name,Sprite charImg, string detail,CharacteStat stat,CharacterSkill skill)
     {
         characterName = name;
-        characterSprite = charImg;
+        characterSprite.sprite = charImg;
         characterDetail = detail;
         characteStat = stat;
         characterSkill = skill;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {

@@ -5,10 +5,16 @@ using TMPro;
 public class DataInCanvas : MonoBehaviour
 {
     public TMP_InputField name_Inputfield;
-    public string playerName;
-
-    private void Update()
+    public new string name;
+    // Start is called before the first frame update
+    void Start()
     {
-        playerName = name_Inputfield.text;
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        name = name_Inputfield.text;
     }
 }

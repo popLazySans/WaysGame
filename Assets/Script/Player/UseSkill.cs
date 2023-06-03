@@ -27,7 +27,7 @@ public class UseSkill : NetworkBehaviour
         TurnBaseManager.rollableDice -= 1;
         if (TurnBaseManager.rollableDice == 0)
         {
-            TurnBaseManager.isRolled.Value = false;
+            TurnBaseManager.isRolled = false;
             TurnBaseManager.skillObject.SetActive(false);
             TurnBaseManager.rollableText.enabled = false;
             TurnBaseManager.ChangeToAnotherPlayerTurnServerRpc();

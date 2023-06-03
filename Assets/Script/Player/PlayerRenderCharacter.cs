@@ -64,7 +64,7 @@ public class PlayerRenderCharacter : NetworkBehaviour
     void Update()
     {
         UpdatePlayerRender();
-        charSprite.sprite = characterData.characters[PlayerId].characterSprite;
+        // charSprite.sprite = characterData.characters[PlayerId].characterSprite;
         NameText.text = PlayerName;
         HPtext.text = "HP " + PlayerHP;
         ATKtext.text = "ATK " + characterData.characters[PlayerId].characteStat.ATK + " + " + (PlayerAtk - characterData.characters[PlayerId].characteStat.ATK);
