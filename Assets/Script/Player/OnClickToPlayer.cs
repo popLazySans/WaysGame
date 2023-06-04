@@ -5,7 +5,7 @@ public class OnClickToPlayer : MonoBehaviour
 {
     public GameObject Character_Camera;
     public PlayerRenderCharacter playerRenderCharacter;
-    private bool isZoomToCharacter = false;
+    public bool isZoomToCharacter = false;
     private PlayerMove playerMove;
     private void Start()
     {

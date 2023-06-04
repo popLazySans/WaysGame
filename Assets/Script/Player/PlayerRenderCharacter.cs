@@ -15,7 +15,7 @@ public class PlayerRenderCharacter : NetworkBehaviour
     public SpriteRenderer charSprite;
     PlayerData playerData;
     LobbyController LobbyData;
-    CharacterList characterData;
+    internal CharacterList characterData;
     public TMP_Text HPtext;
     public TMP_Text DEFtext;
     public TMP_Text ATKtext;
@@ -64,7 +64,7 @@ public class PlayerRenderCharacter : NetworkBehaviour
     void Update()
     {
         UpdatePlayerRender();
-        // charSprite.sprite = characterData.characters[PlayerId].characterSprite;
+        charSprite.sprite = characterData.characters[PlayerId].characterSprite.sprite;
         NameText.text = PlayerName;
         HPtext.text = "HP " + PlayerHP;
         ATKtext.text = "ATK " + characterData.characters[PlayerId].characteStat.ATK + " + " + (PlayerAtk - characterData.characters[PlayerId].characteStat.ATK);

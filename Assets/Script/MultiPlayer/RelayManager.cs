@@ -18,9 +18,9 @@ public class RelayManager : Singleton<RelayManager>
     {
         //Delete(Before build)
                 InitializationOptions options = new InitializationOptions();
-//#if UNITY_EDITOR
+#if UNITY_EDITOR
         options.SetProfile(ClonesManager.IsClone() ? ClonesManager.GetArgument() : "Primary");
-//#endif
+#endif
         await UnityServices.InitializeAsync(options);
         //EndDelete
         if (!AuthenticationService.Instance.IsSignedIn)

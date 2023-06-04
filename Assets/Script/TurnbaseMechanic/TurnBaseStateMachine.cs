@@ -4,15 +4,9 @@ using UnityEngine;
 using Unity.Netcode;
 using QFSW.QC;
 using TMPro;
-using UnityEngine.UI;
-
-[RequireComponent(typeof(Animator))]
 public class TurnBaseStateMachine : NetworkBehaviour
 {
 
-    //public Image dice;
-    //private int diceNumber;
-    //private Animator diceAnimator;
 
     public bool isYourTurn = false;
     public NetworkVariable<NetworkIntArray2D> NetPosition = new NetworkVariable<NetworkIntArray2D>(new NetworkIntArray2D(new int[10, 10]),NetworkVariableReadPermission.Everyone,NetworkVariableWritePermission.Owner);
@@ -27,7 +21,7 @@ public class TurnBaseStateMachine : NetworkBehaviour
     public RandomSpawnItem randomSpawnItem;
     public bool isRolled;
     public DeathController deathController;
-    private DiceAnimation _diceAnimationScript;
+    public ShowDiceFromRoll showDiceFromRoll;
     public struct NetworkIntArray2D : INetworkSerializable
     {
         public int[,] Array;
@@ -57,14 +51,17 @@ public class TurnBaseStateMachine : NetworkBehaviour
     }
     public void Start()
     {
+        StartPhase();
+        isRolled = false;
+    }
+
+    private void StartPhase()
+    {
         rollableText.enabled = false;
         rollObject.SetActive(false);
         skillObject.SetActive(false);
-        //dice.gameObject.SetActive(false);
-        isRolled = false;
-        // _diceAnimationScript = GetComponent<DiceAnimation>();
-        // _diceAnimationScript
     }
+
     public void isChangeToYourTurn(bool yourTurn)
     {
         if (deathController.isDeath == false)
@@ -72,8 +69,7 @@ public class TurnBaseStateMachine : NetworkBehaviour
             isYourTurn = yourTurn;
             if (isRolled == false)
             {
-                rollObject.SetActive(yourTurn);
-                //dice.gameObject.SetActive(isRolled);
+                RollPhase(yourTurn);
             }
         }
         else
@@ -81,6 +77,12 @@ public class TurnBaseStateMachine : NetworkBehaviour
             ChangeToAnotherPlayerTurnServerRpc();
         }
     }
+
+    private void RollPhase(bool yourTurn)
+    {
+        rollObject.SetActive(yourTurn);
+    }
+
     [Command] [ServerRpc(RequireOwnership = false)]
     public void ChangeToAnotherPlayerTurnServerRpc()
     {
@@ -128,77 +130,28 @@ public class TurnBaseStateMachine : NetworkBehaviour
         }
         //Debug.Log(positionText);
     }
-    //private void FixedUpdate()
-    //{
-    //    switch (diceNumber)
-    //    {
-    //        case 0:
-    //            diceAnimator.SetInteger("DiceChange", 0);
-    //            break;
-    //        case 1:
-    //            diceAnimator.SetInteger("DiceChange", 1);
-    //            break;
-    //        case 2:
-    //            diceAnimator.SetInteger("DiceChange", 2);
-    //            break;
-    //        case 3:
-    //            diceAnimator.SetInteger("DiceChange", 3);
-    //            break;
-    //        case 4:
-    //            diceAnimator.SetInteger("DiceChange", 4);
-    //            break;
-    //        case 5:
-    //            diceAnimator.SetInteger("DiceChange", 5);
-    //            break;
-    //        case 6:
-    //            diceAnimator.SetInteger("DiceChange", 6);
-    //            break;
-    //    }
-
-    //}
     public void Roll()
     {
-        Debug.Log("Hello");
-        //if (!IsOwner) return;
-        rollableDice = Random.Range(0,7);
-        isRolled = true;
-        //switch (rollableDice) { 
-        //    case 0:
-        //        diceNumber = 0;
-        //        break; 
-        //    case 1:
-        //        diceNumber = 1;
-        //        break;
-        //    case 2:
-        //        diceNumber = 2;
-        //        break;
-        //    case 3:
-        //        diceNumber = 3;
-        //        break;
-        //    case 4:
-        //        diceNumber = 4;   
-        //        break;  
-        //    case 5:
-        //        diceNumber = 5;
-        //        break;  
-        //    case 6:
-        //        diceNumber = 6;
-        //        break;  
-        //}
-        //Debug.Log(rollableDice);
-        //dice.gameObject.SetActive(isRolled);
-        rollObject.SetActive(false);
-        skillObject.SetActive(true);
-        rollableText.enabled = true;
+        rollableDice = Random.Range(0, 7);
+        showDiceFromRoll.GetValueToDice(rollableDice);
+        ActionPhase();
         if (rollableDice == 0)
         {
             skillObject.SetActive(false);
             isRolled = false;
-            //dice.gameObject.SetActive(isRolled);
             ChangeToAnotherPlayerTurnServerRpc();
             StartCoroutine(SadZero());
         }
     }
+
+    private void ActionPhase()
+    {
+        isRolled = true;
+        rollObject.SetActive(false);
+        skillObject.SetActive(true);
+        rollableText.enabled = true;
+    }
+
     IEnumerator SadZero()
     {
         yield return new WaitForSeconds(2);

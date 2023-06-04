@@ -10,6 +10,7 @@ TagManager:
   - Item
   - LobbyManager
   - dice
+  - DeathManager
   layers:
   - Default
   - TransparentFX
