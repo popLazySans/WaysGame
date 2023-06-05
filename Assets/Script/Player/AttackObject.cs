@@ -7,6 +7,7 @@ using System;
 public class AttackObject : NetworkBehaviour
 {
     public MovementObject movementObject;
+    public GameObject playerObject;
     public GameObject enemyTarget;
     public PlayerData playerData;
     // Start is called before the first frame update
@@ -18,9 +19,15 @@ public class AttackObject : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-      gameObject.GetComponent<Collider>().enabled = CheckEnemyTarget() != null && movementObject.TurnBaseManager.isRolled == true && movementObject.isEnemyPosition == true;
-      gameObject.GetComponent<MeshRenderer>().enabled = CheckEnemyTarget() != null && movementObject.TurnBaseManager.isRolled == true && movementObject.isEnemyPosition == true;
+      if (!IsOwner) gameObject.SetActive(false);
+      gameObject.GetComponent<Collider>().enabled = isEnabled();
+      gameObject.GetComponent<MeshRenderer>().enabled = isEnabled();
       OnClickToAttack();
+    }
+    public bool isEnabled()
+    {
+        bool isEnabled = CheckEnemyTarget() != null && movementObject.TurnBaseManager.isRolled == true && movementObject.isEnemyPosition == true && TurnBaseStateMachine.isAnimated == false;
+        return isEnabled;
     }
     public void OnClickToAttack()
     {
@@ -44,6 +51,12 @@ public class AttackObject : NetworkBehaviour
        enemyTarget = CheckEnemyTarget();
        NetworkObject enemyNetworkObject = enemyTarget.GetComponent<NetworkObject>();
        Debug.Log("Attack : " + enemyNetworkObject.OwnerClientId);
+       playerObject.GetComponent<AnimationCharacters>().OnHittoIdle();
+       enemyTarget.GetComponent<AnimationCharacters>().OnDamagedtoIdle();
+       if (enemyTarget.GetComponent<NetworkObject>().OwnerClientId == 0)
+       {
+            ShowDamagedAnimationServerRpc();
+       }
        AttackServerRpc(Convert.ToInt32(enemyNetworkObject.OwnerClientId),Convert.ToInt32(movementObject.playerObject.OwnerClientId),new ServerRpcParams());
        movementObject.TurnBaseManager.rollableDice -= 1;
        if (movementObject.TurnBaseManager.rollableDice == 0)
@@ -53,6 +66,13 @@ public class AttackObject : NetworkBehaviour
             movementObject.TurnBaseManager.rollableText.enabled = false;
             movementObject.TurnBaseManager.ChangeToAnotherPlayerTurnServerRpc();
        }
+    }
+    [ServerRpc(RequireOwnership =false)]
+    public void ShowDamagedAnimationServerRpc()
+    {
+        GameObject serverPlayerObject = GameObject.FindGameObjectWithTag("Player");
+        Debug.Log("Damaged at me : "+serverPlayerObject.GetComponent<NetworkObject>().OwnerClientId);
+        serverPlayerObject.GetComponent<AnimationCharacters>().isServerAnimated = true;
     }
    [ServerRpc (RequireOwnership =false)]
     public void AttackServerRpc(int playerNum,int AtkNum,ServerRpcParams serverRpcParams)
@@ -67,7 +87,7 @@ public class AttackObject : NetworkBehaviour
                      evade = RandomEvade();
                     playerData.player1EvadeCount.Value -= 1;
                 }
-                playerData.player1HP.Value -= DamageCalcule(playerData.player1Def.Value, playerNum)*evade;
+                playerData.player1HP.Value -= DamageCalcule(playerData.player1Def.Value, AtkNum)*evade;
                 if (playerData.player1GuardCount.Value != 0)
                 {
                     playerData.player1Def.Value = playerData.player1Def.Value / (playerData.player1GuardCount.Value + 1);
@@ -80,7 +100,7 @@ public class AttackObject : NetworkBehaviour
                     evade = RandomEvade();
                     playerData.player2EvadeCount.Value -= 1;
                 }
-                playerData.player2HP.Value -= DamageCalcule(playerData.player2Def.Value,playerNum)*evade;
+                playerData.player2HP.Value -= DamageCalcule(playerData.player2Def.Value,AtkNum) *evade;
                 if (playerData.player2GuardCount.Value != 0)
                 {
                     playerData.player2Def.Value = playerData.player2Def.Value / (playerData.player2GuardCount.Value + 1);
@@ -93,7 +113,7 @@ public class AttackObject : NetworkBehaviour
                     evade = RandomEvade();
                     playerData.player3EvadeCount.Value -= 1;
                 }
-                playerData.player3HP.Value -= DamageCalcule(playerData.player3Def.Value,playerNum) * evade;
+                playerData.player3HP.Value -= DamageCalcule(playerData.player3Def.Value,AtkNum) * evade;
                 if (playerData.player3GuardCount.Value != 0)
                 {
                     playerData.player3Def.Value = playerData.player3Def.Value / (playerData.player3GuardCount.Value + 1);
@@ -106,7 +126,7 @@ public class AttackObject : NetworkBehaviour
                     evade = RandomEvade();
                     playerData.player4EvadeCount.Value -= 1;
                 }
-                playerData.player4HP.Value -= DamageCalcule(playerData.player4Def.Value,playerNum) * evade;
+                playerData.player4HP.Value -= DamageCalcule(playerData.player4Def.Value,AtkNum) * evade;
                 if (playerData.player1GuardCount.Value != 0)
                 {
                     playerData.player4Def.Value = playerData.player4Def.Value / (playerData.player4GuardCount.Value + 1);

@@ -2050,6 +2050,7 @@ MonoBehaviour:
   characterID: 4
   characterName: Squick
   characterSprite: {fileID: 2894046979338199716, guid: f91f8e274f34c7e4bba5a14412e552fa, type: 3}
+  characterAnimator: {fileID: 2703244224469273835, guid: f91f8e274f34c7e4bba5a14412e552fa, type: 3}
   characterDetail: 
   characteStat: {fileID: 187309140}
   characterSkill: {fileID: 187309141}
@@ -5457,6 +5458,7 @@ MonoBehaviour:
   characterID: 1
   characterName: Roy
   characterSprite: {fileID: 2554199992746535513, guid: a21566682c7e66e4983176695f49f374, type: 3}
+  characterAnimator: {fileID: 3400989617638963048, guid: a21566682c7e66e4983176695f49f374, type: 3}
   characterDetail: 
   characteStat: {fileID: 607533158}
   characterSkill: {fileID: 607533159}
@@ -18237,6 +18239,7 @@ MonoBehaviour:
   characterID: 2
   characterName: Anette
   characterSprite: {fileID: 5408265365513575344, guid: db853ebc36862dc468f1c7d781529891, type: 3}
+  characterAnimator: {fileID: 6333210384498861382, guid: db853ebc36862dc468f1c7d781529891, type: 3}
   characterDetail: 
   characteStat: {fileID: 1873679188}
   characterSkill: {fileID: 1873679189}
@@ -19058,6 +19061,7 @@ MonoBehaviour:
   characterID: 3
   characterName: Pipe
   characterSprite: {fileID: 1984279690814619686, guid: dcfe06119d8ef434ead6a0ae06ef0b49, type: 3}
+  characterAnimator: {fileID: 1472466718167467933, guid: dcfe06119d8ef434ead6a0ae06ef0b49, type: 3}
   characterDetail: 
   characteStat: {fileID: 1965469332}
   characterSkill: {fileID: 1965469333}

@@ -22,6 +22,7 @@ public class TurnBaseStateMachine : NetworkBehaviour
     public bool isRolled;
     public DeathController deathController;
     public ShowDiceFromRoll showDiceFromRoll;
+    public static bool isAnimated = false;
     public struct NetworkIntArray2D : INetworkSerializable
     {
         public int[,] Array;

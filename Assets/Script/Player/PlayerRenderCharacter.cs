@@ -13,6 +13,7 @@ public class PlayerRenderCharacter : NetworkBehaviour
     public int PlayerAtk;
     public string PlayerName;
     public SpriteRenderer charSprite;
+    public Animator charAnimator;
     PlayerData playerData;
     LobbyController LobbyData;
     internal CharacterList characterData;
@@ -65,6 +66,7 @@ public class PlayerRenderCharacter : NetworkBehaviour
     {
         UpdatePlayerRender();
         charSprite.sprite = characterData.characters[PlayerId].characterSprite.sprite;
+        charAnimator.runtimeAnimatorController = characterData.characters[PlayerId].characterAnimator.runtimeAnimatorController;
         NameText.text = PlayerName;
         HPtext.text = "HP " + PlayerHP;
         ATKtext.text = "ATK " + characterData.characters[PlayerId].characteStat.ATK + " + " + (PlayerAtk - characterData.characters[PlayerId].characteStat.ATK);

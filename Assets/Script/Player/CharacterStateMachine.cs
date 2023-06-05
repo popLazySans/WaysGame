@@ -7,6 +7,7 @@ public class CharacterStateMachine : MonoBehaviour
     public int characterID;
     public string characterName;
     public SpriteRenderer characterSprite;
+    public Animator characterAnimator;
     public string characterDetail;
     public CharacteStat characteStat;
     public CharacterSkill characterSkill;

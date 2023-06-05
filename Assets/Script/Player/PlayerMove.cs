@@ -18,6 +18,7 @@ public class PlayerMove : NetworkBehaviour
     public NetworkVariable<int> player3PosY = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<int> player4PosX = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<int> player4PosY = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public AnimationCharacters animationCharacters;
     // Start is called before the first frame update
     void Start()
     {
@@ -101,10 +102,29 @@ public class PlayerMove : NetworkBehaviour
     }
     public void GetNewPosition()
     {
-        gameObject.transform.position = new Vector3(playerPosition[1]*10,transform.position.y,transform.position.z);
-        gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, playerPosition[0] * -10);
+        StartCoroutine(MoveTowardsTarget());
+        //gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position,new Vector3(playerPosition[1] * 10, transform.position.y, transform.position.z),Time.deltaTime);
+        //gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, new Vector3(transform.position.x, transform.position.y, playerPosition[0] * -10), Time.deltaTime);
+        //gameObject.transform.position = new Vector3(playerPosition[1]*10,transform.position.y,transform.position.z);
+        //gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, playerPosition[0] * -10);
         //SetPositionPlayer();
         //Debug.Log(playerPosition[0] + " " + playerPosition[1]);
+    }
+    private IEnumerator MoveTowardsTarget()
+    {
+        Vector3 targetPosition1 = new Vector3(playerPosition[1]* 10, transform.position.y, playerPosition[0]*-10);
+        animationCharacters.OnWalk();
+        TurnBaseStateMachine.isAnimated = true;
+        while (Vector3.Distance(transform.position, targetPosition1) > 0.01f)
+        {
+            Vector3 newPosition = Vector3.MoveTowards(transform.position, targetPosition1,15 * Time.deltaTime);
+            transform.position = newPosition;
+            yield return null;
+        }
+        animationCharacters.OnIdle();
+        TurnBaseStateMachine.isAnimated = false;
+        // Movement completed
+        // Debug.Log("Reached target position.");
     }
     public void isShowPossible(bool isShow)
     {

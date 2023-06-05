@@ -65,7 +65,8 @@ public class MovementObject : NetworkBehaviour
     public void ShowPossibleWays()
     {
         if (TurnBaseManager.isRolled == false || isEnemyPosition == true||!playerObject.IsOwner||playerMove.playerPosition[0] + moveToPosition[0] < 0 ||playerMove.playerPosition[1] + moveToPosition[1] < 0 
-            || playerMove.playerPosition[0]+moveToPosition[0]>TurnBaseManager.Position.GetLength(0)-1 || playerMove.playerPosition[1] + moveToPosition[1] > TurnBaseManager.Position.GetLength(1) - 1)
+            || playerMove.playerPosition[0]+moveToPosition[0]>TurnBaseManager.Position.GetLength(0)-1 || playerMove.playerPosition[1] + moveToPosition[1] > TurnBaseManager.Position.GetLength(1) - 1 
+            ||TurnBaseStateMachine.isAnimated == true)
         {
             setEnableCollider(false);
         }

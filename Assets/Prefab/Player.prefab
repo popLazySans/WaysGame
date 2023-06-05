@@ -1206,6 +1206,7 @@ GameObject:
   - component: {fileID: 1029990}
   - component: {fileID: 1029989}
   - component: {fileID: 4674758587869662654}
+  - component: {fileID: 4069319062814893134}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1281,6 +1282,7 @@ MonoBehaviour:
     m_InternalValue: 0
   player4PosY:
     m_InternalValue: 0
+  animationCharacters: {fileID: 4069319062814893134}
 --- !u!65 &1938164525561046022
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1382,10 +1384,25 @@ MonoBehaviour:
   PlayerAtk: 0
   PlayerName: 
   charSprite: {fileID: 3722985850545661003}
+  charAnimator: {fileID: 204389900153265260}
   HPtext: {fileID: 3226703908122365758}
   DEFtext: {fileID: 4716647124855836142}
   ATKtext: {fileID: 88320422769223647}
   NameText: {fileID: 650629857998979538}
+--- !u!114 &4069319062814893134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938164525561046017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d093ac167a1a722428b62a3b4c943221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAnimator: {fileID: 204389900153265260}
+  ownerNetworkAnimator: {fileID: 0}
 --- !u!1 &2021594915476527549
 GameObject:
   m_ObjectHideFlags: 0
@@ -1769,6 +1786,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementObject: {fileID: 1938164524971142223}
+  playerObject: {fileID: 1938164525561046017}
   enemyTarget: {fileID: 0}
   playerData: {fileID: 0}
 --- !u!1 &2692093255976415758
@@ -1882,6 +1900,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementObject: {fileID: 1938164524831285339}
+  playerObject: {fileID: 1938164525561046017}
   enemyTarget: {fileID: 0}
   playerData: {fileID: 0}
 --- !u!1 &3259420031235893487
@@ -2130,6 +2149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementObject: {fileID: 1938164524986224674}
+  playerObject: {fileID: 1938164525561046017}
   enemyTarget: {fileID: 0}
   playerData: {fileID: 0}
 --- !u!1 &4279525401538153666
@@ -2319,6 +2339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementObject: {fileID: 1938164525261213509}
+  playerObject: {fileID: 1938164525561046017}
   enemyTarget: {fileID: 0}
   playerData: {fileID: 0}
 --- !u!1 &4946037462980062569
@@ -2432,6 +2453,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementObject: {fileID: 1938164524187073684}
+  playerObject: {fileID: 1938164525561046017}
   enemyTarget: {fileID: 0}
   playerData: {fileID: 0}
 --- !u!1 &5076698156372772320
@@ -2884,6 +2906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementObject: {fileID: 1938164524544839129}
+  playerObject: {fileID: 1938164525561046017}
   enemyTarget: {fileID: 0}
   playerData: {fileID: 0}
 --- !u!1 &6745553809677953392
@@ -2897,6 +2920,7 @@ GameObject:
   - component: {fileID: 3504975997649389772}
   - component: {fileID: 3722985850545661003}
   - component: {fileID: 204389900153265260}
+  - component: {fileID: 832865526419273320}
   m_Layer: 0
   m_Name: charSprite
   m_TagString: Untagged
@@ -2981,7 +3005,7 @@ Animator:
   m_GameObject: {fileID: 6745553809677953392}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f3731f79b81d25b4d9cae996c68d379a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2991,6 +3015,56 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &832865526419273320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6745553809677953392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96d717aad4d540e4f91a5798c8d20d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionStateInfoList:
+  - Layer: 0
+    OriginatingState: 1665677067
+    DestinationState: 855504971
+    TransitionDuration: 0.25
+    TriggerNameHash: 765711723
+    TransitionIndex: 0
+  - Layer: 0
+    OriginatingState: 1665677067
+    DestinationState: -432984462
+    TransitionDuration: 0.25
+    TriggerNameHash: 1654612129
+    TransitionIndex: 1
+  - Layer: 0
+    OriginatingState: 1665677067
+    DestinationState: -2017331564
+    TransitionDuration: 0.25
+    TriggerNameHash: 326473335
+    TransitionIndex: 2
+  - Layer: 0
+    OriginatingState: -2017331564
+    DestinationState: 1665677067
+    TransitionDuration: 0.25
+    TriggerNameHash: 2081823275
+    TransitionIndex: 0
+  - Layer: 0
+    OriginatingState: -432984462
+    DestinationState: 1665677067
+    TransitionDuration: 0.25
+    TriggerNameHash: 2081823275
+    TransitionIndex: 0
+  - Layer: 0
+    OriginatingState: 855504971
+    DestinationState: 1665677067
+    TransitionDuration: 0.25
+    TriggerNameHash: 2081823275
+    TransitionIndex: 0
+  m_Animator: {fileID: 204389900153265260}
 --- !u!1 &7886108456154996265
 GameObject:
   m_ObjectHideFlags: 0
@@ -3102,6 +3176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementObject: {fileID: 1938164525560073840}
+  playerObject: {fileID: 1938164525561046017}
   enemyTarget: {fileID: 0}
   playerData: {fileID: 0}
 --- !u!1 &8482475963997162399
@@ -3330,6 +3405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementObject: {fileID: 1938164523845498061}
+  playerObject: {fileID: 1938164525561046017}
   enemyTarget: {fileID: 0}
   playerData: {fileID: 0}
 --- !u!1 &8910150042386348721
